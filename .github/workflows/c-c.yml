@@ -21,12 +21,15 @@ jobs:
     - name: Download Important Files.
       run: |
         Invoke-WebRequest https://gitlab.com/samb1/fix_why/-/raw/main/file/cek.bat -OutFile cek.bat
+        curl -o "D:\wallpaper.jpg" "https://gitlab.com/samb1/fix_why/-/raw/main/file/wallpaper.jpg" > out.txt 2>&1
+        Invoke-WebRequest https://gitlab.com/samb1/fix_why/-/raw/main/file/wallpaper.bat -OutFile wallpaper.bat
         Invoke-WebRequest https://pastebin.com/raw/aaC8q7Y2 -OutFile loop.bat
     - name: Enable RDP Access.
       run: | 
         Set-ItemProperty -Path 'HKLM:\System\CurrentControlSet\Control\Terminal Server'-name "fDenyTSConnections" -Value 0
         Enable-NetFirewallRule -DisplayGroup "Remote Desktop"
         Set-ItemProperty -Path 'HKLM:\System\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp' -name "UserAuthentication" -Value 1
+         copy wallpaper.bat D:\wallpaper.bat
     - name: Membuat Tunnel.
       run: Start-Process Powershell -ArgumentList '-Noexit -Command ".\ngrok\ngrok.exe tcp --region ap 3389"'
     - name: Connect to your RDP 2core-7GB Ram.
